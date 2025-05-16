@@ -101,6 +101,7 @@ public function routeNotificationForWhatsapp()
 ### Available Message methods
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
 - `text('')`: (string) Notification message.
+- `previewUrl(true)`: (boolean) [Link Preview](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages).
 
 ## Contributing
 

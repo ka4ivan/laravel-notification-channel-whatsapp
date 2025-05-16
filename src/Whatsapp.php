@@ -138,7 +138,7 @@ class Whatsapp
         if (
             empty($this->apiVersion) ||
             empty($this->accessToken) ||
-            empty($this->profileId)
+            empty($this->numberId)
         ) {
             throw CouldNotSendNotification::whatsappTokenNotProvided('You must provide your Whatsapp tokens to make any API requests.');
         }

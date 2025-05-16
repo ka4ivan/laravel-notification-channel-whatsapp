@@ -3,9 +3,17 @@
 namespace NotificationChannels\Whatsapp\Exceptions;
 
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Arr;
 
 class CouldNotSendNotification extends \Exception
 {
+    public static function whatsappRespondedWithAnExceptionError($response)
+    {
+        $error = Arr::get($response, 'error');
+
+        return new static("The communication with endpoint failed. Reason: {$error}");
+    }
+
     public static function serviceRespondedWithAnError($response)
     {
         return new static("Descriptive error message.");

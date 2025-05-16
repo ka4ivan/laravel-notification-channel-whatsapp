@@ -2,30 +2,57 @@
 
 namespace NotificationChannels\Whatsapp;
 
+use NotificationChannels\Whatsapp\Exceptions\CouldNotCreateMessage;
 use NotificationChannels\Whatsapp\Exceptions\CouldNotSendNotification;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Arr;
 
 class WhatsappChannel
 {
-    public function __construct()
+
+    /** @var Whatsapp */
+    private $whatsapp;
+
+    /**
+     * FacebookChannel constructor.
+     */
+    public function __construct(Whatsapp $whatsapp)
     {
-        // Initialisation code here
+        $this->whatsapp = $whatsapp;
     }
 
     /**
      * Send the given notification.
      *
      * @param mixed $notifiable
-     * @param \Illuminate\Notifications\Notification $notification
+     * @param Notification $notification
      *
-     * @throws \NotificationChannels\Whatsapp\Exceptions\CouldNotSendNotification
+     * @return array
+     * @throws CouldNotCreateMessage
+     * @throws CouldNotSendNotification
      */
-    public function send($notifiable, Notification $notification)
+    public function send($notifiable, Notification $notification): array
     {
-        //$response = [a call to the api of your notification send]
+        $message = $notification->toWhatsapp($notifiable);
 
-//        if ($response->error) { // replace this by the code need to check for errors
-//            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
-//        }
+        if (is_string($message)) {
+            $message = WhatsappMessage::create($message);
+        }
+
+        if ($message->toNotGiven()) {
+            if (!$to = $notifiable->routeNotificationFor('whatsapp')) {
+                throw CouldNotCreateMessage::recipientNotProvided();
+            }
+
+            $message->to($to);
+        }
+
+        $response = $this->whatsapp->send($message->toArray());
+
+        if (Arr::get($response, 'error')) {
+            throw CouldNotSendNotification::whatsappRespondedWithAnExceptionError($response);
+        }
+
+        return json_decode($response->getBody()->getContents(), true);
     }
 }

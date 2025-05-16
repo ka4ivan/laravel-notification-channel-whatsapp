@@ -1,4 +1,4 @@
 # Changelog
 
-## 1.0.0 - 201X-XX-XX
+## 1.0.0 - 2025-05-16
 - initial release

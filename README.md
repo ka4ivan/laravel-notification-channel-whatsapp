@@ -1,77 +1,107 @@
-Please see [this repo](https://github.com/laravel-notification-channels/channels) for instructions on how to submit a channel proposal.
+# Whatsapp Notifications Channel for Laravel
 
-# A Boilerplate repo for contributions
+[![License](https://img.shields.io/packagist/l/ka4ivan/laravel-notification-channel-whatsapp.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-whatsapp)
+[![Build Status](https://img.shields.io/github/stars/ka4ivan/laravel-notification-channel-whatsapp.svg?style=for-the-badge)](https://github.com/ka4ivan/laravel-notification-channel-whatsapp)
+[![Latest Stable Version](https://img.shields.io/packagist/v/ka4ivan/laravel-notification-channel-whatsapp.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-whatsapp)
+[![Total Downloads](https://img.shields.io/packagist/dt/ka4ivan/laravel-notification-channel-whatsapp.svg?style=for-the-badge)](https://packagist.org/packages/ka4ivan/laravel-notification-channel-whatsapp)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/:package_name)
-[![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
-
-This package makes it easy to send notifications using [:service_name](link to service) with Laravel 10.x.
-
-**Note:** Replace ```:channel_namespace``` ```:service_name``` ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:package_name``` ```:package_description``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
-**Tip:** Use "Find in Path/Files" in your code editor to find these keywords within the package directory and replace all occurences with your specified term.
-
-This is where your description should go. Add a little code example so build can understand real quick how the package can be used. Try and limit it to a paragraph or two.
-
-
+This package makes it easy to send notifications using the [Whatsapp Messenger](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started) with Laravel.
 
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the :service_name service](#setting-up-the-:service_name-service)
+    - [Setting up your Whatsapp Bot](#setting-up-your-whatsapp-bot)
+    - [Set config](#set-config)
 - [Usage](#usage)
-	- [Available Message methods](#available-message-methods)
-- [Changelog](#changelog)
-- [Testing](#testing)
-- [Security](#security)
+    - [Available Message methods](#available-message-methods)
 - [Contributing](#contributing)
-- [Credits](#credits)
 - [License](#license)
-
 
 ## Installation
 
-Please also include the steps for any third-party service setup that's required for this package.
+You can install the package via composer:
 
-### Setting up the :service_name service
+``` bash
+composer require ka4ivan/laravel-notification-channel-whatsapp
+```
 
-Optionally include a few steps how users can set up the service.
+### Setting up your Whatsapp Bot
+
+This document describes the steps you must take to become a [Tech Provider Whatsapp](https://developers.facebook.com/docs/whatsapp/solution-providers/get-started-for-tech-providers)
+
+### Set config
+Next we need to add tokens to our Laravel configurations. Create a new Whatsapp section inside `config/services.php` and place the page token there:
+
+```php
+// config/services.php
+'whatsapp' => [
+    'access_token' => env('WHATSAPP_ACCESS_TOKEN', ''),
+    'number_id' => env('WHATSAPP_NUMBER_ID', ''),
+    'api_version' => env('WHATSAPP_API_VERSION', '22.0'),
+],
+```
 
 ## Usage
 
-Some code examples, make it clear how to use the package
+You can now use the Whatsapp channel in your `via()` method, inside the InvoicePaid class. The `to($recipientId)` Whatsapp ID (Phone Number) method defines the Whatsapp user, you want to send the notification to.
 
-### Available Message methods
 
-A list of all available options
+```php
+use NotificationChannels\Whatsapp\WhatsappChannel;
+use NotificationChannels\Whatsapp\WhatsappMessage;
 
-## Changelog
+use Illuminate\Notifications\Notification;
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+class ChannelConnected extends Notification
+{
+    public function via($notifiable)
+    {
+        return [WhatsappChannel::class];
+    }
 
-## Testing
+    public function toWhatsapp($notifiable)
+    {
 
-``` bash
-$ composer test
+        return WhatsappMessage::create()
+            ->to($notifiable->whatsapp_id) // Optional
+            ->text('Congratulations, the communication channel is connected');
+    }
+}
 ```
 
-## Security
+The notification will be sent from your Whatsapp page, whose page token you have configured earlier. Here's a screenshot preview of the notification inside the chat window.
 
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
+#### Message Examples
+
+##### Basic Text Message
+
+```php
+return WhatsappMessage::create('You have just paid your monthly fee! Thanks');
+```
+
+### Routing a message
+
+You can either send the notification by providing with the page-scoped user id of the recipient to the `to($recipientId)` Whatsapp ID (Phone Number) method like shown in the above example or add a `routeNotificationForWhatsapp()` method in your notifiable model:
+
+```php
+/**
+ * Route notifications for the Whatsapp channel.
+ *
+ * @return int
+ */
+public function routeNotificationForWhatsapp()
+{
+    return $this->whatsapp_id;
+}
+```
+
+### Available Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `text('')`: (string) Notification message.
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Credits
-
-- [:author_name](https://github.com/:author_username)
-- [All Contributors](../../contributors)
 
 ## License
 

@@ -6,6 +6,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use Illuminate\Support\Arr;
 use NotificationChannels\Whatsapp\Exceptions\CouldNotSendNotification;
 
 class Whatsapp

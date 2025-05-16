@@ -72,6 +72,8 @@ class ChannelConnected extends Notification
 
 The notification will be sent from your Whatsapp page, whose page token you have configured earlier. Here's a screenshot preview of the notification inside the chat window.
 
+![image](https://github.com/user-attachments/assets/62cebb84-2d8e-47fe-ad3c-5a49be91c151)
+
 #### Message Examples
 
 ##### Basic Text Message

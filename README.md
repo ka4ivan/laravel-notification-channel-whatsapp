@@ -64,6 +64,7 @@ class ChannelConnected extends Notification
 
         return WhatsappMessage::create()
             ->to($notifiable->whatsapp_id) // Optional
+            ->previewUrl(false) // Optional
             ->text('Congratulations, the communication channel is connected');
     }
 }

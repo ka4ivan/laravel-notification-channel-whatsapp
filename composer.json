@@ -1,7 +1,7 @@
 {
-    "name": "laravel-notification-channels/:package_name",
+    "name": "ka4ivan/laravel-notification-channel-whatsapp",
     "description": ":package_description",
-    "homepage": "https://github.com/laravel-notification-channels/:package_name",
+    "homepage": "https://github.com/ka4ivan/laravel-notification-channel-whatsapp",
     "license": "MIT",
     "authors": [
         {
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\": "src"
+            "NotificationChannels\\Whatsapp\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\Test\\": "tests"
+            "NotificationChannels\\Whatsapp\\Test\\": "tests"
         }
     },
     "scripts": {

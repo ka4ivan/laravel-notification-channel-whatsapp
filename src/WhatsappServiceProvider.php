@@ -15,10 +15,10 @@ class WhatsappServiceProvider extends ServiceProvider
             ->needs(Whatsapp::class)
             ->give(static function () {
 
-                // TODO Добавити конфіги
                 return new Whatsapp([
-                    'accessToken' => config('services.whatsapp.accessToken'),
-                    'numberId' => config('services.whatsapp.numberId'),
+                    'accessToken' => config('services.whatsapp.access_token'),
+                    'numberId' => config('services.whatsapp.number_id'),
+                    'apiVersion' => config('services.whatsapp.api_version', '22.0'),
                 ]);
             });
     }

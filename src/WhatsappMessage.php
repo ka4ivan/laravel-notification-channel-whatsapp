@@ -2,7 +2,6 @@
 
 namespace NotificationChannels\Whatsapp;
 
-use Illuminate\Support\Arr;
 use NotificationChannels\Whatsapp\Exceptions\CouldNotCreateMessage;
 
 class WhatsappMessage extends Message

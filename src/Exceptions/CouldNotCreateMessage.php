@@ -21,9 +21,11 @@ class CouldNotCreateMessage extends \Exception
      *
      * @return static
      */
-    public static function textTooLong(): self
+    public static function textTooLong($count = null): self
     {
-        return new static('Message text is too long, A 4096 character limited string should be provided.');
+        $count = $count ?? 4096;
+
+        return new static("Message text is too long, A {$count} character limited string should be provided.");
     }
 
     /**

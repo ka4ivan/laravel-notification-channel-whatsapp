@@ -35,4 +35,14 @@ class CouldNotCreateMessage extends \Exception
     {
         return new static('Your message was missing critical information');
     }
+
+    /**
+     * Thrown when number of buttons in message exceeds.
+     *
+     * @return static
+     */
+    public static function messageButtonsLimitExceeded(): self
+    {
+        return new static('You cannot attach more than one button of type "CTA URL" or more than three buttons of type "Interactive Reply"');
+    }
 }

@@ -5,34 +5,20 @@ namespace NotificationChannels\Whatsapp;
 use Illuminate\Support\Arr;
 use NotificationChannels\Whatsapp\Exceptions\CouldNotCreateMessage;
 
-class WhatsappMessage implements \JsonSerializable
+class WhatsappMessage extends Message
 {
-    /** @var string Recipient's ID (Phone Number). */
-    public $recipientId;
+    /**
+     * @const int Maximum length for body message.
+     */
+    private const MAXIMUM_LENGTH = 4096;
+
+    protected string $type = 'text';
 
     /** @var string Notification Text. */
-    public $text;
+    public string $text;
 
     /** @var bool */
-    protected $hasText = false;
-
-    /** @var bool */
-    public $previewUrl = true;
-
-    /**
-     * @var string Currently only "individual" value is supported.
-     */
-    protected string $recipientType = 'individual';
-
-    /**
-     * @var string Currently only "whatsapp" value is supported.
-     */
-    protected string $messagingProduct = 'whatsapp';
-
-    /**
-     * @var string Type of message object.
-     */
-    protected $type;
+    public bool $previewUrl = true;
 
     /**
      * @throws CouldNotCreateMessage
@@ -61,24 +47,11 @@ class WhatsappMessage implements \JsonSerializable
      */
     public function text(string $text): self
     {
-        if (mb_strlen($text) > 4096) {
+        if (mb_strlen($text) > self::MAXIMUM_LENGTH) {
             throw CouldNotCreateMessage::textTooLong();
         }
 
         $this->text = $text;
-        $this->hasText = true;
-
-        return $this;
-    }
-
-    /**
-     * Recipient's Whatsapp ID (Phone Number).
-     *
-     * @return $this
-     */
-    public function to($recipientId): self
-    {
-        $this->recipientId = $recipientId;
 
         return $this;
     }
@@ -96,19 +69,9 @@ class WhatsappMessage implements \JsonSerializable
     }
 
     /**
-     * Determine if user id is not given.
-     */
-    public function toNotGiven(): bool
-    {
-        return !isset($this->recipientId);
-    }
-
-    /**
      * Convert the object into something JSON serializable.
      *
      * @return array
-     *
-     * @throws CouldNotCreateMessage
      */
     public function jsonSerialize(): array
     {
@@ -117,24 +80,8 @@ class WhatsappMessage implements \JsonSerializable
 
     /**
      * Returns message payload for JSON conversion.
-     *
-     * @throws CouldNotCreateMessage
      */
     public function toArray(): array
-    {
-        if ($this->hasText) {
-            $this->type = 'text';
-
-            return $this->textMessageToArray();
-        }
-
-        throw CouldNotCreateMessage::dataNotProvided();
-    }
-
-    /**
-     * Returns message for simple text message.
-     */
-    protected function textMessageToArray(): array
     {
         $message = [];
         $message['messaging_product'] = $this->messagingProduct;

@@ -21,9 +21,11 @@ class CouldNotCreateMessage extends \Exception
      *
      * @return static
      */
-    public static function textTooLong(): self
+    public static function textTooLong($count = null): self
     {
-        return new static('Message text is too long, A 4096 character limited string should be provided.');
+        $count = $count ?? 4096;
+
+        return new static("Message text is too long, A {$count} character limited string should be provided.");
     }
 
     /**
@@ -34,5 +36,15 @@ class CouldNotCreateMessage extends \Exception
     public static function dataNotProvided(): self
     {
         return new static('Your message was missing critical information');
+    }
+
+    /**
+     * Thrown when number of buttons in message exceeds.
+     *
+     * @return static
+     */
+    public static function messageButtonsLimitExceeded(): self
+    {
+        return new static('You cannot attach more than one button of type "CTA URL" or more than three buttons of type "Interactive Reply"');
     }
 }

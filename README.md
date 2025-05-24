@@ -13,7 +13,8 @@ This package makes it easy to send notifications using the [Whatsapp Messenger](
     - [Setting up your Whatsapp Bot](#setting-up-your-whatsapp-bot)
     - [Set config](#set-config)
 - [Usage](#usage)
-    - [Available Message methods](#available-message-methods)
+    - [Available Text Message methods](#available-text-message-methods)
+    - [Available Cta Url Message methods](#available-cta-url-message-methods)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -98,10 +99,17 @@ public function routeNotificationForWhatsapp()
 }
 ```
 
-### Available Message methods
+### Available Text Message methods
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
 - `text('')`: (string) Notification message.
 - `previewUrl(true)`: (boolean) [Link Preview](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages).
+
+### Available Text Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `body('')`: (string) Message body text.
+- `header(null)`: (Header) Message header object. (ButtonCtaUrlImageHeader/ButtonCtaUrlTitleHeader)
+- `footer('')`: (string) Message footer text.
+- `button()`: (ButtonCtaUrl) Message button object.
 
 ## Contributing
 

@@ -6,6 +6,7 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use Illuminate\Support\Arr;
 use NotificationChannels\Whatsapp\Exceptions\CouldNotSendNotification;
 
 class Whatsapp
@@ -138,7 +139,7 @@ class Whatsapp
         if (
             empty($this->apiVersion) ||
             empty($this->accessToken) ||
-            empty($this->profileId)
+            empty($this->numberId)
         ) {
             throw CouldNotSendNotification::whatsappTokenNotProvided('You must provide your Whatsapp tokens to make any API requests.');
         }

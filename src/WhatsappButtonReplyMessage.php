@@ -3,12 +3,12 @@
 namespace NotificationChannels\Whatsapp;
 
 use Illuminate\Support\Arr;
-use NotificationChannels\Whatsapp\Components\ButtonCtaUrl\ButtonCtaUrl;
-use NotificationChannels\Whatsapp\Components\ButtonCtaUrl\Header;
+use NotificationChannels\Whatsapp\Components\ButtonReply\ButtonReply;
+use NotificationChannels\Whatsapp\Components\ButtonReply\Header;
 use NotificationChannels\Whatsapp\Enums\ButtonType;
 use NotificationChannels\Whatsapp\Exceptions\CouldNotCreateMessage;
 
-class WhatsappCtaUrlMessage extends Message
+class WhatsappButtonReplyMessage extends Message
 {
     /**
      * @const int Maximum length for body message.
@@ -23,8 +23,8 @@ class WhatsappCtaUrlMessage extends Message
 
     protected ?string $footer = null;
 
-    /** @var ButtonCtaUrl CTA Button */
-    protected ButtonCtaUrl $button;
+    /** @var array Buttons Reply */
+    protected array $buttons = [];
 
     /**
      * @throws CouldNotCreateMessage
@@ -83,16 +83,23 @@ class WhatsappCtaUrlMessage extends Message
     }
 
     /**
-     * Set button.
+     * Add up to 3 reply buttons.
      *
      * @return $this
+     *
+     * @throws CouldNotCreateMessage
      */
-    public function button(ButtonCtaUrl $button): self
+    public function buttons(array $buttons = []): self
     {
-        $this->button = $button;
+        if (count($buttons) > 3) {
+            throw CouldNotCreateMessage::messageButtonsLimitExceeded();
+        }
+
+        $this->buttons = $buttons;
 
         return $this;
     }
+
 
     /**
      * Convert the object into something JSON serializable.
@@ -114,11 +121,11 @@ class WhatsappCtaUrlMessage extends Message
         $message['recipient_type'] = $this->recipientType;
         $message['to'] = $this->recipientId;
         $message['type'] = $this->type;
-        $message['interactive']['type'] = ButtonType::CTA_URL;
+        $message['interactive']['type'] = 'button';
         $message['interactive']['header'] = $this->header;
         $message['interactive']['body']['text'] = $this->body;
         $message['interactive']['footer']['text'] = $this->footer;
-        $message['interactive']['action'] = $this->button;
+        $message['interactive']['action']['buttons'] = $this->buttons;
 
         return $message;
     }

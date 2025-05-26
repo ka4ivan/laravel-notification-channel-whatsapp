@@ -1,15 +1,15 @@
 <?php
 
-namespace NotificationChannels\Whatsapp\Components\ButtonCtaUrl;
+namespace NotificationChannels\Whatsapp\Components\ButtonReply;
 
-class ButtonCtaUrlImageHeader extends Header
+class ButtonReplyVideoHeader extends Header
 {
     protected string $link;
     protected string $id;
 
     public function __construct(string $link)
     {
-        parent::__construct('image');
+        parent::__construct('video');
 
         if ('' !== $link) {
             $this->link($link);
@@ -21,16 +21,16 @@ class ButtonCtaUrlImageHeader extends Header
         return new static($link);
     }
 
-    public function id(string $id): self
+    public function link(string $link): self
     {
-        $this->id = $id;
+        $this->link = $link;
 
         return $this;
     }
 
-    public function link(string $link): self
+    public function id(string $id): self
     {
-        $this->link = $link;
+        $this->id = $id;
 
         return $this;
     }
@@ -41,9 +41,9 @@ class ButtonCtaUrlImageHeader extends Header
         $button['type'] = $this->type;
 
         if ($this->link) {
-            $button['image']['link'] = $this->link;
+            $button['video']['link'] = $this->link;
         } elseif ($this->id) {
-            $button['image']['id'] = $this->id;
+            $button['video']['id'] = $this->id;
         }
 
         return $button;

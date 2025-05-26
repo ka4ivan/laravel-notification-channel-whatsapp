@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationChannels\Whatsapp\Components\ButtonCtaUrl;
+namespace NotificationChannels\Whatsapp\Components\ButtonReply;
 
-class ButtonCtaUrlImageHeader extends Header
+class ButtonReplyImageHeader extends Header
 {
     protected string $link;
     protected string $id;
@@ -21,16 +21,16 @@ class ButtonCtaUrlImageHeader extends Header
         return new static($link);
     }
 
-    public function id(string $id): self
+    public function link(string $link): self
     {
-        $this->id = $id;
+        $this->link = $link;
 
         return $this;
     }
 
-    public function link(string $link): self
+    public function id(string $id): self
     {
-        $this->link = $link;
+        $this->id = $id;
 
         return $this;
     }

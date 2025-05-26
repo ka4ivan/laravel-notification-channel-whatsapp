@@ -14,11 +14,13 @@ This package makes it easy to send notifications using the [Whatsapp Messenger](
     - [Set config](#set-config)
 - [Usage](#usage)
     - [Available Text Message methods](#available-text-message-methods)
+    - [Available Reply Message methods](#available-reply-message-methods)
     - [Available Call-To-Action (CTA URL) Message methods](#available-call-to-action-cta-url-message-methods)
     - [Available Audio Message methods](#available-audio-message-methods)
     - [Available Document Message methods](#available-document-message-methods)
     - [Available Image Message methods](#available-image-message-methods)
     - [Available Video Message methods](#available-video-message-methods)
+    - [Available Reaction methods](#available-reaction-methods)
     - [Available Location Message methods](#available-location-message-methods)
     - [Available Location Request Message methods](#available-location-request-message-methods)
 - [Contributing](#contributing)
@@ -110,6 +112,13 @@ public function routeNotificationForWhatsapp()
 - `mediaId('')`: (string) Whatsapp media ID (Only if using uploaded media)
 - `link('')`: (string) Media link (Only if using hosted media (not recommended))
 
+### Available Reply Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `body('')`: (string) Message body text.
+- `header(null)`: (Header) Message header object. (ButtonCtaUrlImageHeader/ButtonCtaUrlTitleHeader)
+- `footer('')`: (string) Message footer text.
+- `buttons([])`: (array) Message buttons array [ButtonReply, ButtonReply, ButtonReply].
+
 ### Available Call-To-Action (CTA URL) Message methods
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
 - `body('')`: (string) Message body text.
@@ -145,6 +154,11 @@ public function routeNotificationForWhatsapp()
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
 - `text('')`: (string) Notification message.
 - `previewUrl(true)`: (boolean) [Link Preview](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages).
+
+### Available Reaction methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `emoji('')`: (string) Emoji reaction. Unicode escape sequence example: \uD83D\uDE00. Emoji example: 😀
+- `messageId('')`: (string) Whatsapp Message ID
 
 ### Available Video Message methods
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).

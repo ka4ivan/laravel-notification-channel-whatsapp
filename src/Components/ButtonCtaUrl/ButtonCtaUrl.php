@@ -32,13 +32,13 @@ class ButtonCtaUrl implements \JsonSerializable
     /**
      * Create a button.
      *
-     * @param string|null $displayText
-     * @param string|null $url
+     * @param string $displayText
+     * @param string $url
      * @return static
      */
     public static function create(
-        string $displayText = null,
-        string $url = null,
+        string $displayText = '',
+        string $url = '',
     ): self
     {
         return new static(

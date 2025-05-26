@@ -39,13 +39,13 @@ class ButtonReply implements \JsonSerializable
     /**
      * Create a button.
      *
-     * @param string|null $id
-     * @param string|null $title
+     * @param string $id
+     * @param string $title
      * @return static
      */
     public static function create(
-        string $id = null,
-        string $title = null,
+        string $id = '',
+        string $title = '',
     ): self
     {
         return new static(

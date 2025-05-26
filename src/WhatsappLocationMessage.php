@@ -9,16 +9,16 @@ class WhatsappLocationMessage extends Message
     protected string $type = 'location';
 
     /** @var string */
-    public string $latitude;
+    public string $latitude = '';
 
     /** @var string */
-    public string $longitude;
+    public string $longitude = '';
 
     /** @var string */
-    public string $name;
+    public string $name = '';
 
     /** @var string */
-    public string $address;
+    public string $address = '';
 
     /**
      * @throws CouldNotCreateMessage

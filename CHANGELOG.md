@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 - 2025-05-16
+- add default values
+
 ## 1.1.0 - 2025-05-26
 - Buttons Reply
 - CTA URL Buttons

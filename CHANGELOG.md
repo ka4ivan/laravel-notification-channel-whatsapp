@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.3 - 2025-05-16
+- ability to send multiple files
+
 ## 1.1.2 - 2025-05-16
 - add default to buttons
 

@@ -31,28 +31,39 @@ class WhatsappChannel
      * @throws CouldNotCreateMessage
      * @throws CouldNotSendNotification
      */
+
     public function send($notifiable, Notification $notification): array
     {
-        $message = $notification->toWhatsapp($notifiable);
+        $messages = $notification->toWhatsapp($notifiable);
 
-        if (is_string($message)) {
-            $message = WhatsappMessage::create($message);
+        if (!is_array($messages)) {
+            $messages = [$messages];
         }
 
-        if ($message->toNotGiven()) {
-            if (!$to = $notifiable->routeNotificationFor('whatsapp')) {
-                throw CouldNotCreateMessage::recipientNotProvided();
+        $responses = [];
+
+        foreach ($messages as $message) {
+            if (is_string($message)) {
+                $message = WhatsappMessage::create($message);
             }
 
-            $message->to($to);
+            if ($message->toNotGiven()) {
+                if (!$to = $notifiable->routeNotificationFor('whatsapp')) {
+                    throw CouldNotCreateMessage::recipientNotProvided();
+                }
+
+                $message->to($to);
+            }
+
+            $response = $this->whatsapp->send($message->toArray());
+
+            if (Arr::get($response, 'error')) {
+                throw CouldNotSendNotification::whatsappRespondedWithAnExceptionError($response);
+            }
+
+            $responses[] = json_decode($response->getBody()->getContents(), true);
         }
 
-        $response = $this->whatsapp->send($message->toArray());
-
-        if (Arr::get($response, 'error')) {
-            throw CouldNotSendNotification::whatsappRespondedWithAnExceptionError($response);
-        }
-
-        return json_decode($response->getBody()->getContents(), true);
+        return $responses;
     }
 }

@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.3 - 2025-05-16
+## 1.2.0 - 2025-05-17
 - ability to send multiple files
 
 ## 1.1.2 - 2025-05-16

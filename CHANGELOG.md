@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.2 - 2025-05-16
+- add default to buttons
+
 ## 1.1.1 - 2025-05-16
 - add default values
 

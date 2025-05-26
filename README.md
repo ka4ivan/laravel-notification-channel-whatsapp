@@ -99,17 +99,52 @@ public function routeNotificationForWhatsapp()
 }
 ```
 
-### Available Text Message methods
+### Available Audio Message methods
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
-- `text('')`: (string) Notification message.
-- `previewUrl(true)`: (boolean) [Link Preview](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages).
+- `mediaId('')`: (string) Whatsapp media ID (Only if using uploaded media)
+- `link('')`: (string) Media link (Only if using hosted media (not recommended))
 
-### Available Text Message methods
+### Available Call-To-Action (CTA URL) Message methods
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
 - `body('')`: (string) Message body text.
 - `header(null)`: (Header) Message header object. (ButtonCtaUrlImageHeader/ButtonCtaUrlTitleHeader)
 - `footer('')`: (string) Message footer text.
 - `button()`: (ButtonCtaUrl) Message button object.
+
+### Available Document Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `caption('')`: (string) Notification caption.
+- `filename('')`: (string) Document filename, with extension. The WhatsApp client will use an appropriate file type icon based on the extension.
+- `mediaId('')`: (string) Whatsapp media ID (Only if using uploaded media)
+- `link('')`: (string) Whatsapp media link (Only if using hosted media (not recommended))
+
+### Available Image Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `caption('')`: (string) Notification caption.
+- `mediaId('')`: (string) Whatsapp media ID (Only if using uploaded media)
+- `link('')`: (string) Whatsapp media link (Only if using hosted media (not recommended))
+
+### Available Location Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `latitude('')`: (string) The geographic latitude of the location (e.g., '50.4501').
+- `longitude('')`: (string) The geographic longitude of the location (e.g., '30.5234').
+- `name('')`: (string) The name or label of the location (e.g., 'Independence Square').
+- `address('')`: (string) The full address (optional), displayed under the name (e.g., 'Khreshchatyk St, Kyiv, Ukraine').
+
+### Available Location Request Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `body('')`: (string) Message body text.
+
+### Available Text Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `text('')`: (string) Notification message.
+- `previewUrl(true)`: (boolean) [Link Preview](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages).
+
+### Available Video Message methods
+- `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
+- `caption('')`: (string) Notification caption.
+- `mediaId('')`: (string) Whatsapp media ID (Only if using uploaded media)
+- `link('')`: (string) Whatsapp media link (Only if using hosted media (not recommended))
 
 ## Contributing
 

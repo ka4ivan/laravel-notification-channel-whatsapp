@@ -10,11 +10,17 @@ This package makes it easy to send notifications using the [Whatsapp Messenger](
 ## Contents
 
 - [Installation](#installation)
-    - [Setting up your Whatsapp Bot](#setting-up-your-whatsapp-bot)
+    - [Setting up your WhatsApp Bot](#setting-up-your-whatsapp-bot)
     - [Set config](#set-config)
 - [Usage](#usage)
     - [Available Text Message methods](#available-text-message-methods)
-    - [Available Cta Url Message methods](#available-cta-url-message-methods)
+    - [Available Call-To-Action (CTA URL) Message methods](#available-call-to-action-cta-url-message-methods)
+    - [Available Audio Message methods](#available-audio-message-methods)
+    - [Available Document Message methods](#available-document-message-methods)
+    - [Available Image Message methods](#available-image-message-methods)
+    - [Available Video Message methods](#available-video-message-methods)
+    - [Available Location Message methods](#available-location-message-methods)
+    - [Available Location Request Message methods](#available-location-request-message-methods)
 - [Contributing](#contributing)
 - [License](#license)
 

@@ -18,8 +18,8 @@ class ButtonReply implements \JsonSerializable
 
     /** @var string Button Type */
     protected $type = ButtonType::REPLY;
-    protected $id;
-    protected $title;
+    protected $id = '';
+    protected $title = '';
 
     /**
      * Button Constructor.

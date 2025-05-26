@@ -4,7 +4,7 @@ namespace NotificationChannels\Whatsapp\Components\ButtonCtaUrl;
 
 class ButtonCtaUrlTitleHeader extends Header
 {
-    protected string $title;
+    protected string $title = '';
 
     public function __construct(string $title)
     {

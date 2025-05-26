@@ -4,7 +4,7 @@ namespace NotificationChannels\Whatsapp\Components\ButtonReply;
 
 class ButtonReplyTitleHeader extends Header
 {
-    protected string $title;
+    protected string $title = '';
 
     public function __construct(string $title)
     {

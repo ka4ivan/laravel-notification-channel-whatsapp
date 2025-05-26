@@ -4,8 +4,8 @@ namespace NotificationChannels\Whatsapp\Components\ButtonCtaUrl;
 
 class ButtonCtaUrlImageHeader extends Header
 {
-    protected string $link;
-    protected string $id;
+    protected string $link = '';
+    protected string $id = '';
 
     public function __construct(string $link)
     {

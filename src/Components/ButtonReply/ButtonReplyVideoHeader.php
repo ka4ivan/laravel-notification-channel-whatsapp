@@ -4,8 +4,8 @@ namespace NotificationChannels\Whatsapp\Components\ButtonReply;
 
 class ButtonReplyVideoHeader extends Header
 {
-    protected string $link;
-    protected string $id;
+    protected string $link = '';
+    protected string $id = '';
 
     public function __construct(string $link)
     {

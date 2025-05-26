@@ -11,8 +11,8 @@ class ButtonCtaUrl implements \JsonSerializable
 {
     /** @var string Button Type */
     protected $type = ButtonType::CTA_URL;
-    protected $displayText;
-    protected $url;
+    protected $displayText = '';
+    protected $url = '';
 
     /**
      * Button Constructor.

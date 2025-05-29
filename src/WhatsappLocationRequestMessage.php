@@ -11,7 +11,7 @@ class WhatsappLocationRequestMessage extends Message
     protected string $type = 'interactive';
 
     /** @var string */
-    public string $body;
+    public string $body = '';
 
     /**
      * @throws CouldNotCreateMessage

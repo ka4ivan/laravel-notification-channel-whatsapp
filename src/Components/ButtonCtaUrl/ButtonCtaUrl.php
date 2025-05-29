@@ -2,23 +2,17 @@
 
 namespace NotificationChannels\Whatsapp\Components\ButtonCtaUrl;
 
-use JsonException;
 use NotificationChannels\Whatsapp\Enums\ButtonType;
-use NotificationChannels\Whatsapp\Exceptions\CouldNotCreateButton;
 
 /**
  * Class Button.
  */
 class ButtonCtaUrl implements \JsonSerializable
 {
-    /** @var ?Header */
-    protected ?Header $header;
     /** @var string Button Type */
     protected $type = ButtonType::CTA_URL;
-    protected $body;
-    protected $footer;
-    protected $displayText;
-    protected $url;
+    protected $displayText = '';
+    protected $url = '';
 
     /**
      * Button Constructor.
@@ -38,13 +32,13 @@ class ButtonCtaUrl implements \JsonSerializable
     /**
      * Create a button.
      *
-     * @param string|null $displayText
-     * @param string|null $url
+     * @param string $displayText
+     * @param string $url
      * @return static
      */
     public static function create(
-        string $displayText = null,
-        string $url = null,
+        string $displayText = '',
+        string $url = '',
     ): self
     {
         return new static(
@@ -82,11 +76,11 @@ class ButtonCtaUrl implements \JsonSerializable
      */
     public function toArray(): array
     {
-        $header = [];
-        $header['name'] = $this->type;
-        $header['parameters']['display_text'] = $this->displayText;
-        $header['parameters']['url'] = $this->url;
+        $button = [];
+        $button['name'] = $this->type;
+        $button['parameters']['display_text'] = $this->displayText;
+        $button['parameters']['url'] = $this->url;
 
-        return $header;
+        return $button;
     }
 }

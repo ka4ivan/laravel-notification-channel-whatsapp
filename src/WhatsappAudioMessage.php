@@ -7,10 +7,10 @@ class WhatsappAudioMessage extends Message
     protected string $type = 'audio';
 
     /** @var string Whatsapp media ID */
-    public string $mediaId;
+    public string $mediaId = '';
 
     /** @var string Document URL */
-    public string $link;
+    public string $link = '';
 
     /**
      * @return static

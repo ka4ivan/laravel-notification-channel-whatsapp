@@ -14,16 +14,16 @@ class WhatsappDocumentMessage extends Message
     protected string $type = 'document';
 
     /** @var string Notification Caption. */
-    public string $caption;
+    public string $caption = '';
 
     /** @var string Whatsapp media ID */
-    public string $mediaId;
+    public string $mediaId = '';
 
     /** @var string Document URL */
-    public string $link;
+    public string $link = '';
 
     /** @var string Document file name */
-    public string $filename;
+    public string $filename = '';
 
     /**
      * @throws CouldNotCreateMessage

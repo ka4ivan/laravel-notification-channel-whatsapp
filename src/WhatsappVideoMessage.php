@@ -14,13 +14,13 @@ class WhatsappVideoMessage extends Message
     protected string $type = 'video';
 
     /** @var string Notification Caption. */
-    public string $caption;
+    public string $caption = '';
 
     /** @var string Whatsapp media ID */
-    public string $mediaId;
+    public string $mediaId = '';
 
     /** @var string Media URL link. */
-    public string $link;
+    public string $link = '';
 
     /**
      * @throws CouldNotCreateMessage

@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationChannels\Whatsapp\Components\ButtonCtaUrl;
+namespace NotificationChannels\Whatsapp\Components\ButtonReply;
 
-class ButtonCtaUrlTitleHeader extends Header
+class ButtonReplyTitleHeader extends Header
 {
     protected string $title = '';
 

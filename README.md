@@ -24,6 +24,7 @@ This package makes it easy to send notifications using the [Whatsapp Messenger](
       - [Location Message](#location-message)
       - [Location Request Message](#location-request-message)
       - [Reaction](#reaction)
+    - [Sending multiple messages](#sending-multiple-messages)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -231,6 +232,44 @@ WhatsappButtonReplyMessage::create()
 WhatsappVideoMessage::create()
     ->caption('video caption')
     ->link('video url');
+```
+
+### Sending multiple messages
+If you need to send multiple files (regardless of the message type)
+```php
+/**
+ * @param $notifiable
+ * @return \NotificationChannels\Whatsapp\Message|array
+ * @throws \NotificationChannels\Whatsapp\Exceptions\CouldNotCreateMessage
+ */
+public function toWhatsApp($notifiable)
+{
+    $text = 'text';
+
+    $files = $this->getFiles();
+
+    if (!empty($files)) {
+        $messages = [];
+
+        $first = true;
+        foreach ($files as $url => $name) {
+            $message = WhatsappDocumentMessage::create()
+                ->link($url)
+                ->filename(Str::substr($name, -32));
+
+            if ($first) {
+                $message->caption($text);
+                $first = false;
+            }
+
+            $messages[] = $message;
+        }
+
+        return $messages;
+    }
+
+    return WhatsappMessage::create()->text($text);
+}
 ```
 
 ## Contributing

@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 
 class WhatsappChannel
 {
-
     /** @var Whatsapp */
     private $whatsapp;
 
@@ -31,7 +30,6 @@ class WhatsappChannel
      * @throws CouldNotCreateMessage
      * @throws CouldNotSendNotification
      */
-
     public function send($notifiable, Notification $notification): array
     {
         $messages = $notification->toWhatsapp($notifiable);
@@ -43,6 +41,18 @@ class WhatsappChannel
         $responses = [];
 
         foreach ($messages as $message) {
+            if ($accessToken = $message->getAccessToken()) {
+                $this->whatsapp->setAccessToken($accessToken);
+            }
+
+            if ($numberId = $message->getNumberId()) {
+                $this->whatsapp->setNumberId($numberId);
+            }
+
+            if ($apiVersion = $message->getApiVersion()) {
+                $this->whatsapp->setApiVersion($apiVersion);
+            }
+
             if (is_string($message)) {
                 $message = WhatsappMessage::create($message);
             }

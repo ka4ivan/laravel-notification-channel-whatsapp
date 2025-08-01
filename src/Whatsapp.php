@@ -11,7 +11,6 @@ use NotificationChannels\Whatsapp\Exceptions\CouldNotSendNotification;
 
 class Whatsapp
 {
-
     const API_HOST = 'https://graph.facebook.com';
 
     /**

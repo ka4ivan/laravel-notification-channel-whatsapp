@@ -25,6 +25,90 @@ abstract class Message implements \JsonSerializable
     protected string $messagingProduct = 'whatsapp';
 
     /**
+     * Access token for authenticating with the Whatsapp API.
+     *
+     * @var string|null
+     */
+    protected ?string $accessToken = null;
+
+    /**
+     * Sender's Number ID
+     *
+     * @var string|null
+     */
+    protected ?string $numberId = null;
+
+    /**
+     * Whatsapp API version (e.g., '22.0')
+     *
+     * @var string|null
+     */
+    protected ?string $apiVersion = null;
+
+    /**
+     * Set the access token used for authenticating API requests.
+     *
+     * @param string|null $accessToken Whatsapp access token.
+     * @return $this
+     */
+    public function setAccessToken(string $accessToken = null): self
+    {
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
+    /**
+     * Set the sender`s number ID.
+     *
+     * @param string|null $numberId
+     * @return $this
+     */
+    public function setNumberId(string $numberId = null): self
+    {
+        $this->numberId = $numberId;
+
+        return $this;
+    }
+
+    /**
+     * Set Default Graph API Version.
+     *
+     * @param string|null $apiVersion
+     * @return $this
+     */
+    public function setApiVersion(string $apiVersion = null): self
+    {
+        $this->apiVersion = $apiVersion;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAccessToken(): ?string
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNumberId(): ?string
+    {
+        return $this->numberId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApiVersion(): ?string
+    {
+        return $this->apiVersion;
+    }
+
+    /**
      * Recipient's Whatsapp ID (Phone Number).
      *
      * @return $this

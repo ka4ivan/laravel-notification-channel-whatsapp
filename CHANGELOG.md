@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.0 - 2025-08-01
+- setting configs in the message class
+
 ## 1.2.0 - 2025-05-17
 - ability to send multiple files
 

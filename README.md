@@ -187,6 +187,9 @@ WhatsappLocationRequestMessage::create('Location, pls');
 - `to($recipientId)`: (string) User (recipient) Whatsapp ID (Phone Number).
 - `text('')`: (string) Notification message.
 - `previewUrl(true)`: (boolean) [Link Preview](https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages).
+- `setApiVersion($apiVersion)`: (string) Set Default Graph API Version.
+- `setAccessToken($accessToken)`: (string) Set the access token used for authenticating API requests.
+- `setNumberId($numberId)`: (string) Set the Whatsapp number ID for API requests.
 
 ```php
 WhatsappMessage::create('Your order has been confirmed!');

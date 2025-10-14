@@ -72,10 +72,16 @@ class ChannelConnected extends Notification
 
     public function toWhatsapp($notifiable)
     {
+        $apiVersion = config('services.whatsapp.api_version');
+        $accessToken = config('services.whatsapp.access_token');
+        $numberId = config('services.whatsapp.number_id');
 
         return WhatsappMessage::create()
-            ->to($notifiable->whatsapp_id) // Optional
-            ->previewUrl(false) // Optional
+            ->to($notifiable->whatsapp_id)  // Optional
+            ->setApiVersion($apiVersion)    // Optional
+            ->setAccessToken($accessToken)  // Optional
+            ->setNumberId($numberId)        // Optional
+            ->previewUrl(false)             // Optional
             ->text('Congratulations, the communication channel is connected');
     }
 }
